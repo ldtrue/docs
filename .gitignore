@@ -3,3 +3,5 @@
 
 # Ignore JetBrains IDE project files
 .idea/
+
+node_modules

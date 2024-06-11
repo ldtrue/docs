@@ -29,11 +29,13 @@
     {
       "name": "API Reference",
       "url": "api-reference"
+    },
+    {
+      "name": "TC API Reference",
+      "url": "api-reference-tc"
     }
   ],
-  "anchors": [
-    
-  ],
+  "anchors": [],
   "navigation": [
     {
       "group": "Get Started",
@@ -61,11 +63,38 @@
       ]
     },
     {
+      "group": "TC API Documentation",
+      "pages": [
+        "api-reference-tc/introduction"
+      ]
+    },
+    {
       "group": "Endpoint Examples",
       "pages": [
         "api-reference/endpoint/get",
         "api-reference/endpoint/create",
         "api-reference/endpoint/delete"
+      ]
+    },
+    {
+      "group": "TC Endpoints",
+      "pages": [
+        "api-reference-tc/endpoint/me",
+        {
+          "group": "Campaigns",
+          "pages": [
+            "api-reference-tc/endpoint/campaigns/list",
+            "api-reference-tc/endpoint/campaigns/get"
+          ]
+        },
+        {
+          "group": "Sessions",
+          "pages": [
+            "api-reference-tc/endpoint/sessions/list",
+            "api-reference-tc/endpoint/sessions/get"
+          ]
+        },
+        "api-reference-tc/endpoint/delete"
       ]
     }
   ],
