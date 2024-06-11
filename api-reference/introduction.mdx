@@ -1,28 +1,19 @@
 ---
 title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+description: 'Welcome to Truecall API Documentation'
 ---
 
 <Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
+  To access Truecall API endpoints, you'll need an API key associated with your team. If you're unsure where to find your API key, please refer to the settings section in the Truecall application.
 </Note>
 
-## Welcome
+## Welcome to Truecall API Documentation
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+Truecall provides a simple yet powerful API for accessing campaign and session data for your team. This documentation serves as a comprehensive guide to understanding and integrating with Truecall's API endpoints.
 
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
+### Authentication
 
-## Authentication
-
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+All API endpoints require authentication using a Bearer token. Your API key serves as this token and is essential for accessing Truecall's API. Make sure to keep your API key secure and never share it with unauthorized users.
 
 ```json
 "security": [
@@ -31,3 +22,20 @@ All API endpoints are authenticated using Bearer tokens and picked up from the s
   }
 ]
 ```
+
+## Getting Started
+
+To get started with Truecall API, follow these steps:
+
+1. Retrieve Your API Key: Navigate to the settings section within the Truecall application to find your unique API key.
+
+2. Explore API Endpoints: Once you have your API key, you can start exploring Truecall's API endpoints listed in the navigation menu on the left.
+
+<Card
+title="Truecall API Reference"
+icon="book"
+href="/api-reference/endpoint/me"
+>
+Explore Truecall API Endpoints
+</Card>
+

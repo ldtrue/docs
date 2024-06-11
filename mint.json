@@ -29,33 +29,10 @@
     {
       "name": "API Reference",
       "url": "api-reference"
-    },
-    {
-      "name": "TC API Reference",
-      "url": "api-reference-tc"
     }
   ],
   "anchors": [],
   "navigation": [
-    {
-      "group": "Get Started",
-      "pages": [
-        "introduction",
-        "quickstart",
-        "development"
-      ]
-    },
-    {
-      "group": "Essentials",
-      "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
-      ]
-    },
     {
       "group": "API Documentation",
       "pages": [
@@ -63,13 +40,7 @@
       ]
     },
     {
-      "group": "TC API Documentation",
-      "pages": [
-        "api-reference-tc/introduction"
-      ]
-    },
-    {
-      "group": "Endpoint Examples",
+      "group": "Endpoints",
       "pages": [
         "api-reference/endpoint/me",
         {
@@ -85,8 +56,7 @@
             "api-reference/endpoint/sessions/list",
             "api-reference/endpoint/sessions/get"
           ]
-        },
-        "api-reference/endpoint/delete"
+        }
       ]
     }
   ],
