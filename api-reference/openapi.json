@@ -34,16 +34,7 @@
             }
           },
           "400": {
-            "description": "Bad request error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "oneOf": [
-                    { "$ref": "#/components/schemas/BadRequestError"}
-                  ]
-                }
-              }
-            }
+            "$ref": "#/components/responses/BadReqResponse"
           },
           "401": {
             "description": "Unauthorized error",
@@ -676,6 +667,32 @@
           },
           "message": {
             "type": "string"
+          }
+        }
+      }
+    },
+    "responses": {
+      "BadReqResponse": {
+        "description": "Bad request exception",
+        "content": {
+          "application/json": {
+            "schema": {
+              "required": [
+                "error",
+                "message"
+              ],
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "enum": ["error"],
+                  "example": "error"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       }
