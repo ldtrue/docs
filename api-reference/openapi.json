@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "TC Api",
-    "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
+    "description": "TrueCall Public API",
     "license": {
       "name": "MIT"
     },
@@ -37,14 +37,7 @@
             "$ref": "#/components/responses/BadReqResponse"
           },
           "401": {
-            "description": "Unauthorized error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/UnauthorizedResponse"
           }
         }
       }
@@ -54,22 +47,10 @@
         "description": "Retrieves a paginated list of campaigns belonging to the team identified by the provided API key. The response includes campaign details and pagination information.",
         "parameters": [
           {
-            "name": "page_size",
-            "in": "query",
-            "description": "Number of items per page (1-100).",
-            "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 100
-            }
+            "$ref": "#/components/parameters/PageSizeParam"
           },
           {
-            "name": "page_token",
-            "in": "query",
-            "description": "Token to fetch the next page of results, if available.",
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/components/parameters/PageTokenParam"
           }
         ],
         "responses": {
@@ -84,26 +65,10 @@
             }
           },
           "400": {
-            "description": "Bad request error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "oneOf": [
-                    { "$ref": "#/components/schemas/BadRequestError"}
-                  ]
-                }
-              }
-            }
+            "$ref": "#/components/responses/BadReqResponse"
           },
           "401": {
-            "description": "Unauthorized error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/UnauthorizedResponse"
           }
         }
       }
@@ -113,13 +78,7 @@
         "description": "Retrieves details of a specific campaign identified by its ID.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "description": "ID of the campaign to retrieve.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/components/parameters/ItemIdParam"
           }
         ],
         "responses": {
@@ -134,38 +93,13 @@
             }
           },
           "400": {
-            "description": "Bad request error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "oneOf": [
-                    { "$ref": "#/components/schemas/BadRequestError"}
-                  ]
-                }
-              }
-            }
+            "$ref": "#/components/responses/BadReqResponse"
           },
           "401": {
-            "description": "Unauthorized error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/UnauthorizedResponse"
           },
           "404": {
-            "description": "Not found error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "oneOf": [
-                    { "$ref": "#/components/schemas/NotFoundError"}
-                  ]
-                }
-              }
-            }
+            "$ref": "#/components/responses/NotFoundResponse"
           }
         }
       }
@@ -175,22 +109,10 @@
         "description": "Retrieves a paginated list of sessions.",
         "parameters": [
           {
-            "name": "page_size",
-            "in": "query",
-            "description": "Number of sessions per page (1-100).",
-            "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 100
-            }
+            "$ref": "#/components/parameters/PageSizeParam"
           },
           {
-            "name": "page_token",
-            "in": "query",
-            "description": "Token to load the next page of sessions.",
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/components/parameters/PageTokenParam"
           }
         ],
         "responses": {
@@ -205,26 +127,10 @@
             }
           },
           "400": {
-            "description": "Bad request error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "oneOf": [
-                    { "$ref": "#/components/schemas/BadRequestError"}
-                  ]
-                }
-              }
-            }
+            "$ref": "#/components/responses/BadReqResponse"
           },
           "401": {
-            "description": "Unauthorized error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/UnauthorizedResponse"
           }
         }
       }
@@ -234,13 +140,7 @@
         "description": "Retrieves details of a session by its ID.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "description": "ID of the session to retrieve.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/components/parameters/ItemIdParam"
           }
         ],
         "responses": {
@@ -255,38 +155,13 @@
             }
           },
           "400": {
-            "description": "Bad request error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "oneOf": [
-                    { "$ref": "#/components/schemas/BadRequestError"}
-                  ]
-                }
-              }
-            }
+            "$ref": "#/components/responses/BadReqResponse"
           },
           "401": {
-            "description": "Unauthorized error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/UnauthorizedResponse"
           },
           "404": {
-            "description": "Not found error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "oneOf": [
-                    { "$ref": "#/components/schemas/NotFoundError"}
-                  ]
-                }
-              }
-            }
+            "$ref": "#/components/responses/NotFoundResponse"
           }
         }
       }
@@ -298,6 +173,11 @@
         "type": "string",
         "enum": ["success", "error"],
         "example": "success"
+      },
+      "ErrorStatus": {
+        "type": "string",
+        "enum": ["error"],
+        "example": "error"
       },
       "TeamOwnerSnippet": {
         "type": "object",
@@ -635,7 +515,7 @@
           }
         }
       },
-      "BadRequestError": {
+      "ErrorSchema": {
         "required": [
           "error",
           "message"
@@ -643,43 +523,7 @@
         "type": "object",
         "properties": {
           "status": {
-            "type": "string",
-            "enum": ["error"],
-            "example": "error"
-          },
-          "message": {
-            "type": "string"
-          }
-        }
-      },
-      "NotFoundError": {
-        "required": [
-          "error",
-          "message"
-        ],
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string",
-            "enum": ["error"],
-            "example": "error"
-          },
-          "message": {
-            "type": "string"
-          }
-        }
-      },
-      "UnauthorizedError": {
-        "required": [
-          "error",
-          "message"
-        ],
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string",
-            "enum": ["error"],
-            "example": "error"
+            "$ref": "#/components/schemas/ErrorStatus"
           },
           "message": {
             "type": "string"
@@ -693,23 +537,58 @@
         "content": {
           "application/json": {
             "schema": {
-              "required": [
-                "error",
-                "message"
-              ],
-              "type": "object",
-              "properties": {
-                "status": {
-                  "type": "string",
-                  "enum": ["error"],
-                  "example": "error"
-                },
-                "message": {
-                  "type": "string"
-                }
-              }
+              "$ref": "#/components/schemas/ErrorSchema"
             }
           }
+        }
+      },
+      "UnauthorizedResponse": {
+        "description": "Unauthorized exception",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorSchema"
+            }
+          }
+        }
+      },
+      "NotFoundResponse": {
+        "description": "NotFound exception",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorSchema"
+            }
+          }
+        }
+      }
+    },
+    "parameters": {
+      "PageSizeParam": {
+        "name": "page_size",
+        "in": "query",
+        "description": "Number of items per page (1-100).",
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        }
+      },
+      "PageTokenParam": {
+        "name": "page_token",
+        "in": "query",
+        "description": "Token to fetch the next page of results, if available.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "ItemIdParam": {
+        "name": "id",
+        "in": "path",
+        "description": "ID of the item to retrieve.",
+        "required": true,
+        "schema": {
+          "type": "string"
         }
       }
     },

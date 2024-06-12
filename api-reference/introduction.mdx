@@ -16,11 +16,10 @@ Truecall provides a simple yet powerful API for accessing campaign and session d
 All API endpoints require authentication using a Bearer token. Your API key serves as this token and is essential for accessing Truecall's API. Make sure to keep your API key secure and never share it with unauthorized users.
 
 ```json
-"security": [
-  {
-    "bearerAuth": []
+"headers": {
+    "Authorization": "ApiKey <api_key>"
   }
-]
+
 ```
 
 ## Getting Started
