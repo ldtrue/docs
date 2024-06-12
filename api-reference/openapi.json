@@ -294,38 +294,89 @@
   },
   "components": {
     "schemas": {
+      "SuccessStatus": {
+        "type": "string",
+        "enum": ["success", "error"],
+        "example": "success"
+      },
+      "TeamOwnerSnippet": {
+        "type": "object",
+        "description": "owner of team",
+        "properties": {
+          "first_name": {
+            "type": "string",
+            "description": "first_name of team owner"
+          },
+          "last_name": {
+            "type": "string",
+            "description": "last_name of team owner"
+          },
+          "email": {
+            "type": "string",
+            "description": "email address of team owner"
+          }
+        }
+      },
+      "TeamSnippet": {
+        "type": "object",
+        "description": "the team that owns this api_key",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "name of team"
+          },
+          "owner": {
+            "$ref": "#/components/schemas/TeamOwnerSnippet"
+          }
+        }
+      },
+      "CampaignListSnippet": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "id of the campaign"
+          },
+          "api_key": {
+            "type": "string",
+            "description": "api_key of the campaign"
+          },
+          "name": {
+            "type": "string",
+            "description": "name of the campaign"
+          },
+          "created_at": {
+            "type": "number",
+            "description": "timestamp representation of when the campaign was created",
+            "example": 1718104009000
+          }
+        }
+      },
+      "PaginationObject": {
+        "type": "object",
+        "properties": {
+          "has_next_page": {
+            "type": "boolean",
+            "description": "Indicates whether there are more pages available after the current page."
+          },
+          "next_page_token": {
+            "type": "string",
+            "description": "Token to fetch the next page of results, if available."
+          }
+        },
+        "description": "Pagination information"
+      },
       "MeResponse": {
         "type": "object",
         "properties": {
           "status": {
-            "type": "string",
-            "enum": ["success", "error"],
-            "example": "success"
+            "$ref": "#/components/schemas/SuccessStatus"
           },
           "data": {
             "type": "object",
             "properties": {
               "team": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "owner": {
-                    "type": "object",
-                    "properties": {
-                      "first_name": {
-                        "type": "string"
-                      },
-                      "last_name": {
-                        "type": "string"
-                      },
-                      "email": {
-                        "type": "string"
-                      }
-                    }
-                  }
-                }
+                "$ref": "#/components/schemas/TeamSnippet"
               }
             }
           }
@@ -335,10 +386,7 @@
         "type": "object",
         "properties": {
           "status": {
-            "type": "string",
-            "enum": ["success"],
-            "example": "success",
-            "description": "Status of the response."
+            "$ref": "#/components/schemas/SuccessStatus"
           },
           "data": {
             "type": "object",
@@ -346,42 +394,12 @@
               "items": {
                 "type": "array",
                 "items": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string",
-                      "description": "id of the campaign"
-                    },
-                    "api_key": {
-                      "type": "string",
-                      "description": "api_key of the campaign"
-                    },
-                    "name": {
-                      "type": "string",
-                      "description": "name of the campaign"
-                    },
-                    "created_at": {
-                      "type": "number",
-                      "description": "timestamp representation of when the campaign was created",
-                      "example": 1718104009000
-                    }
-                  }
+                  "$ref": "#/components/schemas/CampaignListSnippet"
                 },
                 "description": "List of campaign snippets"
               },
               "pagination": {
-                "type": "object",
-                "properties": {
-                  "has_next_page": {
-                    "type": "boolean",
-                    "description": "Indicates whether there are more pages available after the current page."
-                  },
-                  "next_page_token": {
-                    "type": "string",
-                    "description": "Token to fetch the next page of results, if available."
-                  }
-                },
-                "description": "Pagination information"
+                "$ref": "#/components/schemas/PaginationObject"
               }
             }
           }
