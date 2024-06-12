@@ -330,6 +330,11 @@
           }
         }
       },
+      "CreatedAt": {
+        "type": "number",
+        "description": "timestamp representation of when the item was created",
+        "example": 1718104009000
+      },
       "CampaignListSnippet": {
         "type": "object",
         "properties": {
@@ -346,9 +351,57 @@
             "description": "name of the campaign"
           },
           "created_at": {
-            "type": "number",
-            "description": "timestamp representation of when the campaign was created",
-            "example": 1718104009000
+            "$ref": "#/components/schemas/CreatedAt"
+          }
+        }
+      },
+      "CampaignSourcesConfigObject": {
+        "type": "object",
+        "description": "allow / block sources configuration of the campaign",
+        "properties": {
+          "allow": {
+            "type": "array",
+            "nullable": true,
+            "description": "list all the allowed sources this campaign allows (if applicable)",
+            "items": {
+              "type": "string"
+            }
+          },
+          "block": {
+            "type": "array",
+            "nullable": true,
+            "description": "list all the blocked sources this campaign allows (if applicable)",
+            "items": {
+              "type": "string"
+            }
+          },
+          "allow_all": {
+            "type": "boolean",
+            "description": "true = allow any source",
+            "nullable": true
+          }
+        }
+      },
+      "CampaignDetailsSnippet": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "id of the campaign"
+          },
+          "api_key": {
+            "type": "string",
+            "description": "api_key associated with the campaign"
+          },
+          "name": {
+            "type": "string",
+            "description": "name of the campaign"
+          },
+          "created_at": {
+            "$ref": "#/components/schemas/CreatedAt"
+          },
+          "sources_config": {
+            "$ref": "#/components/schemas/CampaignSourcesConfigObject"
           }
         }
       },
@@ -365,6 +418,139 @@
           }
         },
         "description": "Pagination information"
+      },
+      "SessionListSnippet": {
+        "type": "object",
+        "properties": {
+          "tc_id": {
+            "type": "string"
+          },
+          "created_at": {
+            "$ref": "#/components/schemas/CreatedAt"
+          },
+          "source_url": {
+            "type": "string"
+          },
+          "generator_id": {
+            "type": "string"
+          }
+        }
+      },
+      "FocsecIPData": {
+        "type": "object",
+        "properties": {
+          "country": {
+            "type": "string"
+          },
+          "flag": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "ip": {
+            "type": "string"
+          },
+          "is_datacenter": {
+            "type": "boolean"
+          },
+          "is_tor": {
+            "type": "boolean"
+          },
+          "autonomous_system_organization": {
+            "type": "string"
+          },
+          "autonomous_system_number": {
+            "type": "integer"
+          },
+          "is_vpn": {
+            "type": "boolean"
+          },
+          "is_in_european_union": {
+            "type": "boolean"
+          },
+          "is_bot": {
+            "type": "boolean"
+          },
+          "iso_code": {
+            "type": "string"
+          },
+          "is_proxy": {
+            "type": "boolean"
+          }
+        }
+      },
+      "SessionDetailsSnippet": {
+        "type": "object",
+        "properties": {
+          "tc_id": {
+            "type": "string"
+          },
+          "created_at": {
+            "$ref": "#/components/schemas/CreatedAt"
+          },
+          "source_url": {
+            "type": "string"
+          },
+          "generator_id": {
+            "type": "string"
+          },
+          "details": {
+            "type": "object",
+            "properties": {
+              "ip_v4": {
+                "type": "string"
+              },
+              "ip_v6": {
+                "type": "string"
+              },
+              "ip_data": {
+                "type": "object",
+                "properties": {
+                  "v6": {
+                    "$ref": "#/components/schemas/FocsecIPData"
+                  },
+                  "v4": {
+                    "$ref": "#/components/schemas/FocsecIPData"
+                  }
+                }
+              },
+              "device_model": {
+                "type": "string"
+              },
+              "device_vendor": {
+                "type": "string"
+              },
+              "user_agent": {
+                "type": "string"
+              },
+              "os_name": {
+                "type": "string"
+              },
+              "os_version": {
+                "type": "string"
+              },
+              "browser_name": {
+                "type": "string"
+              },
+              "browser_version": {
+                "type": "string"
+              },
+              "timezone": {
+                "type": "integer"
+              },
+              "adblock": {
+                "type": "boolean"
+              },
+              "do_not_track": {
+                "type": "boolean"
+              },
+              "fingerprint_hash": {
+                "type": "string"
+              }
+            }
+          }
+        }
       },
       "MeResponse": {
         "type": "object",
@@ -409,58 +595,10 @@
         "type": "object",
         "properties": {
           "status": {
-            "type": "string",
-            "enum": ["success"],
-            "example": "success"
+            "$ref": "#/components/schemas/SuccessStatus"
           },
           "data": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string",
-                "description": "id of the campaign"
-              },
-              "api_key": {
-                "type": "string",
-                "description": "api_key associated with the campaign"
-              },
-              "name": {
-                "type": "string",
-                "description": "name of the campaign"
-              },
-              "created_at": {
-                "type": "integer",
-                "format": "int64",
-                "description": "timestamp representation of when the campaign was created"
-              },
-              "sources_config": {
-                "type": "object",
-                "description": "allow / block sources configuration of the campaign",
-                "properties": {
-                  "allow": {
-                    "type": "array",
-                    "nullable": true,
-                    "description": "list all the allowed sources this campaign allows (if applicable)",
-                    "items": {
-                      "type": "string"
-                    }
-                  },
-                  "block": {
-                    "type": "array",
-                    "nullable": true,
-                    "description": "list all the blocked sources this campaign allows (if applicable)",
-                    "items": {
-                      "type": "string"
-                    }
-                  },
-                  "allow_all": {
-                    "type": "boolean",
-                    "description": "true = allow any source",
-                    "nullable": true
-                  }
-                }
-              }
-            }
+            "$ref": "#/components/schemas/CampaignDetailsSnippet"
           }
         }
       },
@@ -468,8 +606,7 @@
         "type": "object",
         "properties": {
           "status": {
-            "type": "string",
-            "enum": ["success"]
+            "$ref": "#/components/schemas/SuccessStatus"
           },
           "data": {
             "type": "object",
@@ -477,40 +614,13 @@
               "items": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/SessionItem"
+                  "$ref": "#/components/schemas/SessionListSnippet"
                 }
               },
               "pagination": {
-                "type": "object",
-                "properties": {
-                  "has_next_page": {
-                    "type": "boolean"
-                  },
-                  "next_page_token": {
-                    "type": "string",
-                    "description": "Token to fetch the next page of results, if available."
-                  }
-                }
+                "$ref": "#/components/schemas/PaginationObject"
               }
             }
-          }
-        }
-      },
-      "SessionItem": {
-        "type": "object",
-        "properties": {
-          "tc_id": {
-            "type": "string"
-          },
-          "created_at": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "source_url": {
-            "type": "string"
-          },
-          "generator_id": {
-            "type": "string"
           }
         }
       },
@@ -518,122 +628,10 @@
         "type": "object",
         "properties": {
           "status": {
-            "type": "string",
-            "enum": ["success"]
+            "$ref": "#/components/schemas/SuccessStatus"
           },
           "data": {
-            "type": "object",
-            "properties": {
-              "tc_id": {
-                "type": "string"
-              },
-              "created_at": {
-                "type": "integer",
-                "format": "int64"
-              },
-              "source_url": {
-                "type": "string"
-              },
-              "generator_id": {
-                "type": "string"
-              },
-              "details": {
-                "type": "object",
-                "properties": {
-                  "ip_v4": {
-                    "type": "string"
-                  },
-                  "ip_v6": {
-                    "type": "string"
-                  },
-                  "ip_data": {
-                    "type": "object",
-                    "properties": {
-                      "v6": {
-                        "type": "object"
-                      },
-                      "v4": {
-                        "type": "object",
-                        "properties": {
-                          "country": {
-                            "type": "string"
-                          },
-                          "flag": {
-                            "type": "string"
-                          },
-                          "city": {
-                            "type": "string"
-                          },
-                          "ip": {
-                            "type": "string"
-                          },
-                          "is_datacenter": {
-                            "type": "boolean"
-                          },
-                          "is_tor": {
-                            "type": "boolean"
-                          },
-                          "autonomous_system_organization": {
-                            "type": "string"
-                          },
-                          "autonomous_system_number": {
-                            "type": "integer"
-                          },
-                          "is_vpn": {
-                            "type": "boolean"
-                          },
-                          "is_in_european_union": {
-                            "type": "boolean"
-                          },
-                          "is_bot": {
-                            "type": "boolean"
-                          },
-                          "iso_code": {
-                            "type": "string"
-                          },
-                          "is_proxy": {
-                            "type": "boolean"
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "device_model": {
-                    "type": "string"
-                  },
-                  "device_vendor": {
-                    "type": "string"
-                  },
-                  "user_agent": {
-                    "type": "string"
-                  },
-                  "os_name": {
-                    "type": "string"
-                  },
-                  "os_version": {
-                    "type": "string"
-                  },
-                  "browser_name": {
-                    "type": "string"
-                  },
-                  "browser_version": {
-                    "type": "string"
-                  },
-                  "timezone": {
-                    "type": "integer"
-                  },
-                  "adblock": {
-                    "type": "boolean"
-                  },
-                  "do_not_track": {
-                    "type": "boolean"
-                  },
-                  "fingerprint_hash": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
+            "$ref": "#/components/schemas/SessionDetailsSnippet"
           }
         }
       },
