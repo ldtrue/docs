@@ -99,7 +99,7 @@
             "$ref": "#/components/responses/UnauthorizedResponse"
           },
           "404": {
-            "$ref": "#/components/responses/NotFoundResponse"
+            "$ref": "#/components/responses/CampaignNotFoundResponse"
           }
         }
       }
@@ -161,7 +161,7 @@
             "$ref": "#/components/responses/UnauthorizedResponse"
           },
           "404": {
-            "$ref": "#/components/responses/NotFoundResponse"
+            "$ref": "#/components/responses/SessionNotFoundResponse"
           }
         }
       }
@@ -529,6 +529,70 @@
             "type": "string"
           }
         }
+      },
+      "MissingApiKeySchema": {
+        "required": [
+          "error",
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/ErrorStatus"
+          },
+          "message": {
+            "type": "string",
+            "example": "Missing api_key"
+          }
+        }
+      },
+      "InvalidApiKeySchema": {
+        "required": [
+          "error",
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/ErrorStatus"
+          },
+          "message": {
+            "type": "string",
+            "example": "Invalid api_key"
+          }
+        }
+      },
+      "CampaignNotFoundSchema": {
+        "required": [
+          "error",
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/ErrorStatus"
+          },
+          "message": {
+            "type": "string",
+            "example": "Campaign not found"
+          }
+        }
+      },
+      "SessionNotFoundSchema": {
+        "required": [
+          "error",
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/ErrorStatus"
+          },
+          "message": {
+            "type": "string",
+            "example": "Session not found"
+          }
+        }
       }
     },
     "responses": {
@@ -537,7 +601,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/ErrorSchema"
+              "$ref": "#/components/schemas/MissingApiKeySchema"
             }
           }
         }
@@ -547,17 +611,27 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/ErrorSchema"
+              "$ref": "#/components/schemas/InvalidApiKeySchema"
             }
           }
         }
       },
-      "NotFoundResponse": {
+      "CampaignNotFoundResponse": {
         "description": "NotFound exception",
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/ErrorSchema"
+              "$ref": "#/components/schemas/CampaignNotFoundSchema"
+            }
+          }
+        }
+      },
+      "SessionNotFoundResponse": {
+        "description": "NotFound exception",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/SessionNotFoundSchema"
             }
           }
         }
