@@ -10,7 +10,7 @@
   },
   "servers": [
     {
-      "url": "https://454c-82-78-22-111.ngrok-free.app/api"
+      "url": "https://api.truecall.com"
     }
   ],
   "security": [
