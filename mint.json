@@ -29,6 +29,10 @@
     "name": "TrueCall",
     "url": "https://app.truecall.com"
   },
+  "primaryTab": {
+    "name": "Home",
+    "isDefaultHidden": true
+  },
   "tabs": [
     {
       "name": "Public API Reference",
