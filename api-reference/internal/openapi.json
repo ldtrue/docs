@@ -1,0 +1,285 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "TrueCall Api Specs",
+    "description": "TrueCall internal API reference",
+    "license": {
+      "name": "MIT"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.truecall.com"
+    }
+  ],
+  "paths": {
+    "/associate": {
+      "get": {
+        "description": "Associates a specific TrueCall ID and dialed number combination to a customer's phone number. \n\n This is to be called as soon as the customer call takes place.",
+        "parameters": [
+          { "$ref": "#/components/parameters/ApiKeyQueryParam" },
+          { "$ref": "#/components/parameters/TcIdQueryParam" },
+          { "$ref": "#/components/parameters/DidQueryParam" },
+          { "$ref": "#/components/parameters/ConsumerPhoneQueryParam" }
+        ],
+        "responses": {
+          "200": {
+            "description": "Associate response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    { "$ref": "#/components/schemas/Success" },
+                    { "$ref": "#/components/schemas/AssociateError" }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/associate-verify": {
+      "get": {
+        "description": "Associates a specific TrueCall ID and dialed number combination to a customer's phone number, and runs the full fraud detection suite in order to also detect any malicious activity. \n\n This is to be called as soon as the customer call takes place.",
+        "parameters": [
+          { "$ref": "#/components/parameters/ApiKeyQueryParam" },
+          { "$ref": "#/components/parameters/TcIdQueryParam" },
+          { "$ref": "#/components/parameters/DidQueryParam" },
+          { "$ref": "#/components/parameters/ConsumerPhoneQueryParam" }
+        ],
+        "responses": {
+          "200": {
+            "description": "Associate and verify response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    { "$ref": "#/components/schemas/Success" },
+                    { "$ref": "#/components/schemas/AssociateVerifyError" }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/verify": {
+      "get": {
+        "description": "Runs the full fraud detection suite in order to detect any malicious activity in the session.",
+        "parameters": [
+          { "$ref": "#/components/parameters/ApiKeyQueryParam" },
+          { "$ref": "#/components/parameters/TcIdQueryParam" },
+          { "$ref": "#/components/parameters/DidQueryParam" },
+          { "$ref": "#/components/parameters/ConsumerPhoneQueryParam" }
+        ],
+        "responses": {
+          "200": {
+            "description": "Verify response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    { "$ref": "#/components/schemas/Success" },
+                    { "$ref": "#/components/schemas/VerifyError" }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/check": {
+      "get": {
+        "description": "Runs a subset of the fraud detection suite in order to detect various forms of malicious activity within the session.",
+        "parameters": [
+          { "$ref": "#/components/parameters/ApiKeyQueryParam" },
+          { "$ref": "#/components/parameters/TcIdQueryParam" }
+        ],
+        "responses": {
+          "200": {
+            "description": "Check response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    { "$ref": "#/components/schemas/Success" },
+                    { "$ref": "#/components/schemas/CheckError" }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "TcReqId": {
+        "type": "string",
+        "example": "bnqtkot35h9bxgqi8ymva70x1easzqb7l7lt"
+      },
+      "TcStatusSuccess": {
+        "type": "string",
+        "enum": ["success"],
+        "example": "success"
+      },
+      "TcStatusError": {
+        "type": "string",
+        "enum": ["error"],
+        "example": "error"
+      },
+      "TcMessage": {
+        "type": "string",
+        "example": "Missing api_key"
+      },
+      "AssociateTcErrorCode": {
+        "type": "number",
+        "example": 100,
+        "description": "100 - Missing api_key \n\n 101 - Missing tc_id \n\n 102 - Missing consumer_phone \n\n 103 - Missing dialed_number \n\n 104 - Invalid consumer_phone \n\n 105 - Invalid dialed_number \n\n 106 - Invalid dialed_number \n\n 200 - Invalid api_key \n\n 201 - Invalid api_key \n\n 202 - Invalid api_key \n\n 203 - Invalid tc_id \n\n 204 - Invalid api_key \n\n 300 - Campaign source mismatch \n\n 400 - Already associated \n\n 500 - General failure \n\n 600 - User is suspended or pending config \n\n 700 - dialed_number not tracked \n\n 701 - dialed_number not matched"
+      },
+      "AssociateVerifyTcErrorCode": {
+        "type": "number",
+        "example": 101,
+        "description": "100 - Missing api_key \n\n 101 - Missing tc_id \n\n 102 - Missing consumer_phone \n\n 103 - Missing dialed_number \n\n 104 - Invalid consumer_phone \n\n 105 - Invalid dialed_number \n\n 106 - Invalid dialed_number \n\n 200 - Invalid api_key \n\n 201 - Invalid api_key \n\n 202 - Invalid api_key \n\n 203 - Invalid tc_id \n\n 204 - Invalid api_key \n\n 205 - Session not associated \n\n 300 - Campaign source mismatch \n\n 400 - Already associated \n\n 500 - General failure \n\n 600 - User is suspended or pending config \n\n 601 - Team billing error \n\n 700 - dialed_number not tracked \n\n 701 - dialed_number not matched \n\n 800 - Fraud detected \n\n 801 - Unable to verify fraud"
+      },
+      "VerifyTcErrorCode": {
+        "type": "number",
+        "example": 102,
+        "description": "100 - Missing api_key \n\n 101 - Missing tc_id \n\n 102 - Missing consumer_phone \n\n 103 - Missing dialed_number \n\n 104 - Invalid consumer_phone \n\n 105 - Invalid dialed_number \n\n 106 - Invalid dialed_number \n\n 200 - Invalid api_key \n\n 201 - Invalid api_key \n\n 202 - Invalid api_key \n\n 203 - Invalid tc_id \n\n 204 - Invalid api_key \n\n 205 - Session not associated \n\n 300 - Campaign source mismatch \n\n 500 - General failure \n\n 600 - User is suspended or pending config \n\n 601 - Team billing error \n\n 800 - Fraud detected \n\n 801 - Unable to verify fraud"
+      },
+      "CheckTcErrorCode": {
+        "type": "number",
+        "example": 800,
+        "description": "100 - Missing api_key \n\n 101 - Missing tc_id \n\n 200 - Invalid api_key \n\n 201 - Invalid api_key \n\n 202 - Invalid api_key \n\n 203 - Invalid tc_id \n\n 204 - Invalid api_key \n\n 205 - Session not associated \n\n 300 - Campaign source mismatch \n\n 500 - General failure \n\n 600 - User is suspended or pending config \n\n 601 - Team billing error \n\n 800 - Fraud detected"
+      },
+
+      "Success": {
+        "title": "Success",
+        "type": "object",
+        "properties": {
+          "tc_req_id": {
+            "$ref": "#/components/schemas/TcReqId"
+          },
+          "tc_status": {
+            "$ref": "#/components/schemas/TcStatusSuccess"
+          }
+        }
+      },
+      "AssociateError": {
+        "type": "object",
+        "properties": {
+          "tc_req_id": {
+            "$ref": "#/components/schemas/TcReqId"
+          },
+          "tc_status": {
+            "$ref": "#/components/schemas/TcStatusError"
+          },
+          "tc_error_code": {
+            "$ref": "#/components/schemas/AssociateTcErrorCode"
+          },
+          "tc_message": {
+            "$ref": "#/components/schemas/TcMessage"
+          }
+        }
+      },
+      "AssociateVerifyError": {
+        "type": "object",
+        "properties": {
+          "tc_req_id": {
+            "$ref": "#/components/schemas/TcReqId"
+          },
+          "tc_status": {
+            "$ref": "#/components/schemas/TcStatusError"
+          },
+          "tc_error_code": {
+            "$ref": "#/components/schemas/AssociateVerifyTcErrorCode"
+          },
+          "tc_message": {
+            "$ref": "#/components/schemas/TcMessage"
+          }
+        }
+      },
+      "VerifyError": {
+        "type": "object",
+        "properties": {
+          "tc_req_id": {
+            "$ref": "#/components/schemas/TcReqId"
+          },
+          "tc_status": {
+            "$ref": "#/components/schemas/TcStatusError"
+          },
+          "tc_error_code": {
+            "$ref": "#/components/schemas/AssociateVerifyTcErrorCode"
+          },
+          "tc_message": {
+            "$ref": "#/components/schemas/TcMessage"
+          }
+        }
+      },
+      "CheckError": {
+        "type": "object",
+        "properties": {
+          "tc_req_id": {
+            "$ref": "#/components/schemas/TcReqId"
+          },
+          "tc_status": {
+            "$ref": "#/components/schemas/TcStatusError"
+          },
+          "tc_error_code": {
+            "$ref": "#/components/schemas/AssociateVerifyTcErrorCode"
+          },
+          "tc_message": {
+            "$ref": "#/components/schemas/TcMessage"
+          }
+        }
+      }
+    },
+    "responses": {
+
+    },
+    "parameters": {
+
+      "ApiKeyQueryParam": {
+        "name": "api_key",
+        "in": "query",
+        "description": "Campaign's API key",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "TcIdQueryParam": {
+        "name": "tc_id",
+        "in": "query",
+        "description": "TrueCall session ID",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "ConsumerPhoneQueryParam": {
+        "name": "consumer_phone",
+        "in": "query",
+        "description": "Consumer's phone number",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "DidQueryParam": {
+        "name": "dialed_number",
+        "in": "query",
+        "description": "Number dialed by consumer",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

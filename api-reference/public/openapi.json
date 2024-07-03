@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "TC Api",
-    "description": "TrueCall Public API",
+    "title": "TrueCall Api Specs",
+    "description": "TrueCall public API reference",
     "license": {
       "name": "MIT"
     },
