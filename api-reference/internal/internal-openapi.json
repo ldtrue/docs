@@ -42,7 +42,7 @@
     },
     "/associate-verify": {
       "get": {
-        "description": "Associates a specific TrueCall ID and dialed number combination to a customer's phone number, and runs the full fraud detection suite in order to also detect any malicious activity. \n\n This is to be called as soon as the customer call takes place.",
+        "description": "Combines the Associate and Verify APIs: Associates a specific TrueCall ID and dialed number combination with a customer's phone number and runs a full verification on the TrueCall ID, validating all settings, including matching the consumer's phone number to the TrueCall ID. \n\n This stores the TrueCall ID to your account and allows all data to be accessed with Get Sessions and List Session. \n\n Typically used in Dual Identity campaigns (where the Generator is also the End User).",
         "parameters": [
           { "$ref": "#/components/parameters/ApiKeyQueryParam" },
           { "$ref": "#/components/parameters/TcIdQueryParam" },
@@ -68,7 +68,7 @@
     },
     "/verify": {
       "get": {
-        "description": "Runs the full fraud detection suite in order to detect any malicious activity in the session.",
+        "description": "Runs a full verification on the TrueCall ID, validating all settings, including matching the consumer's phone number to the TrueCall ID. \n\n This stores the TrueCall ID to your account and allows all data to be accessed with Get Sessions and List Session. \n\n Typically used on POST.",
         "parameters": [
           { "$ref": "#/components/parameters/ApiKeyQueryParam" },
           { "$ref": "#/components/parameters/TcIdQueryParam" },
@@ -94,7 +94,7 @@
     },
     "/check": {
       "get": {
-        "description": "Runs a subset of the fraud detection suite in order to detect various forms of malicious activity within the session.",
+        "description": "Runs a partial check on the TrueCall ID, verifying only that it exists, matches whitelisting and time window settings. \n\n This does not verify if the phone number matches the TrueCall ID and does not store the TrueCall ID. \n\n Typically used on PING.",
         "parameters": [
           { "$ref": "#/components/parameters/ApiKeyQueryParam" },
           { "$ref": "#/components/parameters/TcIdQueryParam" }
