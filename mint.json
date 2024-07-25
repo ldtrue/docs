@@ -81,8 +81,8 @@
     {
       "group": "Buyer endpoints",
       "pages": [
-        "api-reference/internal/endpoint/verify",
-        "api-reference/internal/endpoint/check"
+        "api-reference/internal/endpoint/check",
+        "api-reference/internal/endpoint/verify"
       ]
     }
   ],
