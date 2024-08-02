@@ -35,38 +35,34 @@
   },
   "tabs": [
     {
-      "name": "Public API Reference",
-      "url": "api-reference/public"
-    },
-    {
-      "name": "Internal API Reference",
-      "url": "api-reference/internal"
+      "name": "API Reference",
+      "url": "api-reference"
     }
   ],
   "anchors": [],
   "navigation": [
     {
-      "group": "API Documentation",
+      "group": "General",
       "pages": [
-        "api-reference/public/introduction"
+        "api-reference/public-introduction"
       ]
     },
     {
       "group": "Endpoints",
       "pages": [
-        "api-reference/public/endpoint/me",
+        "api-reference/public-endpoints/me",
         {
-          "group": "Campaigns",
+          "group": "Get Campaigns",
           "pages": [
-            "api-reference/public/endpoint/campaigns/list",
-            "api-reference/public/endpoint/campaigns/get"
+            "api-reference/public-endpoints/campaigns/list",
+            "api-reference/public-endpoints/campaigns/get"
           ]
         },
         {
-          "group": "Sessions",
+          "group": "Get TrueCall IDs",
           "pages": [
-            "api-reference/public/endpoint/sessions/list",
-            "api-reference/public/endpoint/sessions/get"
+            "api-reference/public-endpoints/sessions/list",
+            "api-reference/public-endpoints/sessions/get"
           ]
         }
       ]
@@ -74,15 +70,15 @@
     {
       "group": "Generator endpoints",
       "pages": [
-        "api-reference/internal/endpoint/associate",
-        "api-reference/internal/endpoint/associate_verify"
+        "api-reference/private-endpoints/associate",
+        "api-reference/private-endpoints/associate_verify"
       ]
     },
     {
       "group": "Buyer endpoints",
       "pages": [
-        "api-reference/internal/endpoint/check",
-        "api-reference/internal/endpoint/verify"
+        "api-reference/private-endpoints/check",
+        "api-reference/private-endpoints/verify"
       ]
     }
   ],
