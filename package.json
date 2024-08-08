@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "start:dev": "mintlify dev"
+  },
   "dependencies": {
     "sharp": "^0.33.4"
   }

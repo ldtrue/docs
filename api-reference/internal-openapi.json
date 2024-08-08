@@ -30,7 +30,7 @@
               "application/json": {
                 "schema": {
                   "oneOf": [
-                    { "$ref": "#/components/schemas/Success" },
+                    { "$ref": "#/components/schemas/AssociateSuccess"},
                     { "$ref": "#/components/schemas/AssociateError" }
                   ]
                 }
@@ -47,7 +47,8 @@
           { "$ref": "#/components/parameters/ApiKeyQueryParam" },
           { "$ref": "#/components/parameters/TcIdQueryParam" },
           { "$ref": "#/components/parameters/DidQueryParam" },
-          { "$ref": "#/components/parameters/ConsumerPhoneQueryParam" }
+          { "$ref": "#/components/parameters/ConsumerPhoneQueryParam" },
+          { "$ref": "#/components/parameters/InsightsQueryParam" }
         ],
         "responses": {
           "200": {
@@ -56,7 +57,7 @@
               "application/json": {
                 "schema": {
                   "oneOf": [
-                    { "$ref": "#/components/schemas/Success" },
+                    { "$ref": "#/components/schemas/VerifySuccess"},
                     { "$ref": "#/components/schemas/AssociateVerifyError" }
                   ]
                 }
@@ -73,7 +74,8 @@
           { "$ref": "#/components/parameters/ApiKeyQueryParam" },
           { "$ref": "#/components/parameters/TcIdQueryParam" },
           { "$ref": "#/components/parameters/DidQueryParam" },
-          { "$ref": "#/components/parameters/ConsumerPhoneQueryParam" }
+          { "$ref": "#/components/parameters/ConsumerPhoneQueryParam" },
+          { "$ref": "#/components/parameters/InsightsQueryParam" }
         ],
         "responses": {
           "200": {
@@ -82,7 +84,7 @@
               "application/json": {
                 "schema": {
                   "oneOf": [
-                    { "$ref": "#/components/schemas/Success" },
+                    { "$ref": "#/components/schemas/VerifySuccess"},
                     { "$ref": "#/components/schemas/VerifyError" }
                   ]
                 }
@@ -97,7 +99,8 @@
         "description": "Runs a partial check on the TrueCall ID, verifying only that it exists, matches whitelisting and time window settings. \n\n This does not verify if the phone number matches the TrueCall ID and does not store the TrueCall ID. \n\n Typically used on PING.",
         "parameters": [
           { "$ref": "#/components/parameters/ApiKeyQueryParam" },
-          { "$ref": "#/components/parameters/TcIdQueryParam" }
+          { "$ref": "#/components/parameters/TcIdQueryParam" },
+          { "$ref": "#/components/parameters/InsightsQueryParam" }
         ],
         "responses": {
           "200": {
@@ -106,7 +109,7 @@
               "application/json": {
                 "schema": {
                   "oneOf": [
-                    { "$ref": "#/components/schemas/Success" },
+                    { "$ref": "#/components/schemas/VerifySuccess"},
                     { "$ref": "#/components/schemas/CheckError" }
                   ]
                 }
@@ -137,6 +140,56 @@
         "type": "string",
         "example": "Missing api_key"
       },
+      "TcInsights": {
+        "type": "object",
+        "nullable": true,
+        "properties": {
+          "source_url": {
+            "type": "string",
+            "nullable": true
+          },
+          "ip": {
+            "type": "array",
+            "nullable": true,
+            "description": "IPs associated with the session, both IP v4 and v6 depending on availability",
+            "items": {
+              "type": "string"
+            }
+          },
+          "city": {
+            "type": "string",
+            "nullable": true
+          },
+          "country": {
+            "type": "string",
+            "nullable": true
+          },
+          "country_iso": {
+            "type": "string",
+            "nullable": true
+          },
+          "timezone": {
+            "type": "integer",
+            "nullable": true
+          },
+          "platform": {
+            "type": "string",
+            "nullable": true
+          },
+          "user_agent": {
+            "type": "string",
+            "nullable": true
+          },
+          "browser_name": {
+            "type": "string",
+            "nullable": true
+          },
+          "created_at": {
+            "type": "integer",
+            "nullable": true
+          }
+        }
+      },
       "AssociateTcErrorCode": {
         "type": "number",
         "example": 100,
@@ -157,8 +210,7 @@
         "example": 800,
         "description": "100 - Missing api_key \n\n 101 - Missing tc_id \n\n 200 - Invalid api_key \n\n 201 - Invalid api_key \n\n 202 - Invalid api_key \n\n 203 - Invalid tc_id \n\n 204 - Invalid api_key \n\n 205 - Session not associated \n\n 300 - Campaign source mismatch \n\n 500 - General failure \n\n 600 - User is suspended or pending config \n\n 601 - Team billing error \n\n 800 - Fraud detected"
       },
-
-      "Success": {
+      "AssociateSuccess": {
         "title": "Success",
         "type": "object",
         "properties": {
@@ -167,6 +219,21 @@
           },
           "tc_status": {
             "$ref": "#/components/schemas/TcStatusSuccess"
+          }
+        }
+      },
+      "VerifySuccess": {
+        "title": "Success",
+        "type": "object",
+        "properties": {
+          "tc_req_id": {
+            "$ref": "#/components/schemas/TcReqId"
+          },
+          "tc_status": {
+            "$ref": "#/components/schemas/TcStatusSuccess"
+          },
+          "tc_insights": {
+            "$ref": "#/components/schemas/TcInsights"
           }
         }
       },
@@ -201,6 +268,9 @@
           },
           "tc_message": {
             "$ref": "#/components/schemas/TcMessage"
+          },
+          "tc_insights": {
+            "$ref": "#/components/schemas/TcInsights"
           }
         }
       },
@@ -218,6 +288,9 @@
           },
           "tc_message": {
             "$ref": "#/components/schemas/TcMessage"
+          },
+          "tc_insights": {
+            "$ref": "#/components/schemas/TcInsights"
           }
         }
       },
@@ -235,6 +308,9 @@
           },
           "tc_message": {
             "$ref": "#/components/schemas/TcMessage"
+          },
+          "tc_insights": {
+            "$ref": "#/components/schemas/TcInsights"
           }
         }
       }
@@ -276,6 +352,15 @@
         "in": "query",
         "description": "Number dialed by consumer",
         "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "InsightsQueryParam": {
+        "name": "insights",
+        "in": "query",
+        "description": "Session data to include in the response. \n\n Available options are: \n\n source_url | ip | city | country | country_iso | timezone | platform | user_agent | browser_name | created_at_ts | created_at_iso \n\n Those can be combined to get specifically what's needed: \n\n insights=source_url,city,country,created_at_iso",
+        "required": false,
         "schema": {
           "type": "string"
         }
