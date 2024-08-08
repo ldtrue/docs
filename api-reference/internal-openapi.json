@@ -359,7 +359,7 @@
       "InsightsQueryParam": {
         "name": "insights",
         "in": "query",
-        "description": "Session data to include in the response. \n\n Available options are: \n\n source_url | ip | city | country | country_iso | timezone | platform | user_agent | browser_name | created_at \n\n Those can be combined to get specifically what's needed: \n\n insights=source_url,timezone,created_at",
+        "description": "Session data to include in the response. \n\n Available options are: \n\n source_url | ip | city | country | country_iso | timezone | platform | user_agent | browser_name | created_at_ts | created_at_iso \n\n Those can be combined to get specifically what's needed: \n\n insights=source_url,city,country,created_at_iso",
         "required": false,
         "schema": {
           "type": "string"
